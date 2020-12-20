@@ -23,8 +23,7 @@ class API {
   }
 
   static Future getMFVS(String phost, String pporta) async {
-    var url =
-        "http://$phost:$pporta/INNER JOIN [dbo].[VMODELOFVS] VMO ON VMO.CODIGO = FVS.CODMODELO";
+    var url = "http://$phost:$pporta/GetListaModeloFVS";
     var dataMFVS = await http.get(url);
     return dataMFVS;
   }

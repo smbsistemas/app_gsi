@@ -31,36 +31,6 @@ class _InspServicosEdit extends State<InspServicosEdit> {
 
   List<ModeloServicos> _listModeloServicosI = [];
 
-  List _enabled = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true
-  ];
-
   String _login = '';
   String _password = '';
   String _nome = '';
@@ -73,17 +43,6 @@ class _InspServicosEdit extends State<InspServicosEdit> {
 
   String _codFVS = '';
   int _index = 0;
-
-  initState() {
-    super.initState();
-    _idColigada = this.data.idColigada;
-    _appBarTitle = new Text('INSPEÇÃO DE SERVIÇOS');
-    _appBarBackgroundColor = Colors.red;
-    _porta = this.dataConfig.auPorta;
-    _host = this.dataConfig.auHost;
-    _userId = this.dataConfig.auIdUser;
-    _codFVS = this.data.codFVS;
-  }
 
   bool wvar = true;
   List checked1 = [
@@ -131,6 +90,19 @@ class _InspServicosEdit extends State<InspServicosEdit> {
     false,
     false,
   ];
+
+  initState() {
+    super.initState();
+    _idColigada = this.data.idColigada;
+    _appBarTitle = new Text('INSPEÇÃO DE SERVIÇOS');
+    _appBarBackgroundColor = Colors.red;
+    _porta = this.dataConfig.auPorta;
+    _host = this.dataConfig.auHost;
+    _userId = this.dataConfig.auIdUser;
+    _codFVS = this.data.codFVS;
+
+    _getModeloFVSCheck();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,26 +161,14 @@ class _InspServicosEdit extends State<InspServicosEdit> {
                               Container(
                                 width: 80.0,
                                 child: Column(children: <Widget>[
-                                  new Radio<bool>(
+                                  new Radio(
                                     value:
                                         checked1[index] == true ? true : false,
                                     groupValue: true,
-                                    onChanged: (bool value) {
+                                    onChanged: (value) {
                                       setState(() {
                                         checked1[index] = true;
                                         checked2[index] = false;
-
-/*                                    value: checked1[index],
-                                    groupValue:
-                                        snapshot.data[index].inspecao == 'X'
-                                            ? true
-                                            : false,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        checked1[index] = true;
-                                        checked2[index] = false; */
-                                        //snapshot.data[index].inspecao = 'X';
-                                        //snapshot.data[index].acao = '';
                                       });
                                     },
                                   ),
@@ -240,27 +200,15 @@ class _InspServicosEdit extends State<InspServicosEdit> {
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
-                                      new Radio<bool>(
+                                      new Radio(
                                         value: checked2[index] == true
                                             ? true
                                             : false,
                                         groupValue: true,
-                                        onChanged: (bool value) {
+                                        onChanged: (value) {
                                           setState(() {
                                             checked2[index] = true;
                                             checked1[index] = false;
-
-/*                                        value: checked2[index],
-                                        groupValue:
-                                            snapshot.data[index].acao == 'O'
-                                                ? true
-                                                : false,
-                                        onChanged: (bool value) {
-                                          setState(() {
-                                            checked2[index] = true;
-                                            checked1[index] = false; */
-                                            //  snapshot.data[index].inspecao = '';
-                                            //  snapshot.data[index].acao = 'O';
                                           });
                                         },
                                       )
@@ -279,7 +227,7 @@ class _InspServicosEdit extends State<InspServicosEdit> {
           ),
           new RaisedButton(
             onPressed: _sendForm,
-            child: new Text('Enviar'),
+            child: new Text('Salvar'),
           )
         ],
       ),
@@ -287,7 +235,7 @@ class _InspServicosEdit extends State<InspServicosEdit> {
   }
 
   void _sendForm() async {
-    print('insert ficha de inspeção de serviços');
+    print('update - ficha de inspeção de serviços');
     String _codModelo = '';
     String _item = '';
     String _pInspecao = '';
@@ -303,17 +251,17 @@ class _InspServicosEdit extends State<InspServicosEdit> {
       _pInspecao = '';
       _pAcao = '';
       _pReinspecao = '';
-      if (checked1[x] != '') {
+      if (checked1[x] != false) {
         _pInspecao = 'X'; // Item Conforme
       } else {
-        if (checked2[x] != '') {
+        if (checked2[x] != false) {
           _pAcao = 'O'; // Item não conforme
           _temNaoConformidade = 'S';
         }
       }
       var data = await http.get(
-          'http://$_host:$_porta/PostInspecao/$_codFVS/$_idColigada/$_codModelo/$_item/$_pInspecao/$_pAcao/$_pReinspecao');
-      var jsonData = json.decode(data.body)['ItensServicos'];
+          'http://$_host:$_porta/PostUpdateInspecao/$_codFVS/$_idColigada/$_codModelo/$_item/$_pInspecao/$_pAcao/$_pReinspecao');
+      var jsonData = json.decode(data.body)['UpDateInspecao'];
       x = x + 1;
     }
 
@@ -339,7 +287,7 @@ class _InspServicosEdit extends State<InspServicosEdit> {
       ModeloServicos documento = ModeloServicos(x, u['CODMODELO'], u['ITEM'],
           u['DESCRICAO'], u['TOLERANCIA'], u['INSPECAO'], u['ACAO'], '');
       _listModeloServicos.add(documento);
-      _inspecao = u['INSPECAO'];
+      /*    _inspecao = u['INSPECAO'];
       print('_inspecao: $_inspecao');
       _acao = u['ACAO'];
       if (_inspecao == 'X') {
@@ -357,14 +305,43 @@ class _InspServicosEdit extends State<InspServicosEdit> {
       } else {
         print('ACAO - checked2: false');
         checked2[x] = false;
-      }
+      } */
       x = x + 1;
-      print('x: $x');
     }
 
     _listModeloServicosI = _listModeloServicos;
 
     return _listModeloServicos;
+  }
+
+  Future<List<ModeloServicos>> _getModeloFVSCheck() async {
+    String _inspecao;
+    String _acao;
+    var data = await http
+        .get('http://$_host:$_porta/GetItemMFVSEdit/$_idColigada/$_codFVS');
+    var jsonData = json.decode(data.body)['ItensServicosEdit'];
+
+    int x = 0;
+    for (var u in jsonData) {
+      ModeloServicos documento = ModeloServicos(x, u['CODMODELO'], u['ITEM'],
+          u['DESCRICAO'], u['TOLERANCIA'], u['INSPECAO'], u['ACAO'], '');
+      _inspecao = u['INSPECAO'];
+      _acao = u['ACAO'];
+      if (_inspecao == 'X') {
+        checked1[x] = true;
+        checked2[x] = false;
+      } else {
+        checked1[x] = false;
+      }
+      if (_acao == 'O') {
+        checked2[x] = true;
+        checked1[x] = false;
+      } else {
+        checked2[x] = false;
+      }
+      x = x + 1;
+      print('check $x');
+    }
   }
 }
 

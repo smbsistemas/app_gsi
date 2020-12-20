@@ -293,7 +293,7 @@ class _InspServicos extends State<InspServicos> {
       }
       var data = await http.get(
           'http://$_host:$_porta/PostInspecao/$_codFVS/$_idColigada/$_codModelo/$_item/$_pInspecao/$_pAcao/$_pReinspecao');
-      var jsonData = json.decode(data.body)['ItensServicos'];
+      var jsonData = json.decode(data.body)['Inspecao'];
       x = x + 1;
     }
 
