@@ -776,9 +776,6 @@ class _NaoConforme extends State<NaoConforme> {
     print('_evidenciaTratativa: $_evidenciaTratativa');
     print('_primeiroPorque: $_primeiroPorque');
     print('_descricaoAbrangencia: $_descricaoAbrangencia');
-    var wteste =
-        'http://$_host:$_porta/PostNaoConfomidade/$_coligada/$_itemCCU/$_itemTipo/$_itemClassificacao/$_itemExtratificacao/$wDataAcao/$pnaoConformidade/$pacaoImediata/$pevidenciaObservada/$pevidenciaTratativa/$_codigo/$_itemExecutor/$pprimeiroPorque/$_itemSetor/$_itemTipoRegistro/$wtipoIsolado/$wAfetaQualidade/$pdescricaoAbrangencia/$wPlanoAcao';
-    print('comando: $wteste');
     if ((_naoConformidade != null) && (_itemCCU != null)) {
       var dataNaoConf = await http.get(
           'http://$_host:$_porta/PostNaoConfomidade/$_coligada/$_itemCCU/$_itemTipo/$_itemClassificacao/$_itemExtratificacao/$wDataAcao/$pnaoConformidade/$pacaoImediata/$pevidenciaObservada/$pevidenciaTratativa/$_codigo/$_itemExecutor/$pprimeiroPorque/$_itemSetor/$_itemTipoRegistro/$wtipoIsolado/$wAfetaQualidade/$pdescricaoAbrangencia/$wPlanoAcao');
@@ -792,6 +789,7 @@ class _NaoConforme extends State<NaoConforme> {
         x = x + 1;
       }
       _ncCodigo = _listNaoConf[0].ncCodigo;
+      print('_ncCodigo: _ncCodigo');
 
       data.idNaoConformidade = _ncCodigo;
       data.idColigada = _coligada;
