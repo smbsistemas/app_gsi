@@ -6,7 +6,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class LoginPage extends StatefulWidget {
   @override
