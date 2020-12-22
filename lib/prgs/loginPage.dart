@@ -108,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
     _nome = _loginPage[0].lpNome;
     _pwdCript = _loginPage[0].lpSenha;
     _mensagem = _loginPage[0].lpMensagem;
-    print('senha criptografada: $_pwdCript');
+    print('_mensagem: $_mensagem');
+    // print('senha criptografada: $_pwdCript');
     // String _pwdDecode;
     //   Uint8List base64Decode(_pwdDecode) => base64.decode(_pwdCript);
     /*  try {

@@ -1,5 +1,4 @@
 import 'dart:convert';
-//import 'dart:ffi';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,21 +16,33 @@ import 'package:rgti_gsi/prgs/relator.dart';
 
 class API {
   static Future getSetor(String phost, String pporta, String pUserId) async {
-    var url = "http://$phost:$pporta/getSetor/$pUserId";
-    var dataSetor = await http.get(url);
-    return dataSetor;
+    try {
+      var url = "http://$phost:$pporta/getSetor/$pUserId";
+      var dataSetor = await http.get(url);
+      return dataSetor;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future getUsers(String phost, String pporta) async {
-    var url = "http://$phost:$pporta/getUsuarios";
-    var dataUsers = await http.get(url);
-    return dataUsers;
+    try {
+      var url = "http://$phost:$pporta/getUsuarios";
+      var dataUsers = await http.get(url);
+      return dataUsers;
+    } catch (e) {
+      return null;
+    }
   }
 
   static Future getCCU(String phost, String pporta, String pUserId) async {
-    var url = "http://$phost:$pporta/GetCentrodeCusto/$pUserId";
-    var dataCCU = await http.get(url);
-    return dataCCU;
+    try {
+      var url = "http://$phost:$pporta/GetCentrodeCusto/$pUserId";
+      var dataCCU = await http.get(url);
+      return dataCCU;
+    } catch (e) {
+      return null;
+    }
   }
 }
 
@@ -51,9 +62,9 @@ String _tipoIsolado = '';
 String _afetaQualidade = '';
 String _planoDeAcao = '';
 
-String wccuCodigo;
-String wccuDescricao;
-String _ncCodigo;
+String wccuCodigo = '';
+String wccuDescricao = '';
+String _ncCodigo = '';
 
 class NaoConforme extends StatefulWidget {
   @override
@@ -862,31 +873,43 @@ class _NaoConforme extends State<NaoConforme> {
   }
 
   _getUsers() async {
-    API.getUsers(_host, _porta).then((response) {
-      setState(() {
-        Iterable list = json.decode(response.body)['Usuarios'];
-        _usuarios = list.map((model) => Usuarios.fromJson(model)).toList();
+    try {
+      API.getUsers(_host, _porta).then((response) {
+        setState(() {
+          Iterable list = json.decode(response.body)['Usuarios'];
+          _usuarios = list.map((model) => Usuarios.fromJson(model)).toList();
+        });
       });
-    });
+    } catch (e) {
+      return null;
+    }
   }
 
   _getCCU() async {
-    API.getCCU(_host, _porta, _codigo).then((response) {
-      setState(() {
-        Iterable list = json.decode(response.body)['CentrodeCusto'];
-        _centroDeCusto =
-            list.map((model) => CentroDeCusto.fromJson(model)).toList();
+    try {
+      API.getCCU(_host, _porta, _codigo).then((response) {
+        setState(() {
+          Iterable list = json.decode(response.body)['CentrodeCusto'];
+          _centroDeCusto =
+              list.map((model) => CentroDeCusto.fromJson(model)).toList();
+        });
       });
-    });
+    } catch (e) {
+      return null;
+    }
   }
 
   _getSetor() async {
-    API.getSetor(_host, _porta, _codigo).then((response) {
-      setState(() {
-        Iterable list = json.decode(response.body)['Setor'];
-        _setor = list.map((model) => Setor.fromJson(model)).toList();
+    try {
+      API.getSetor(_host, _porta, _codigo).then((response) {
+        setState(() {
+          Iterable list = json.decode(response.body)['Setor'];
+          _setor = list.map((model) => Setor.fromJson(model)).toList();
+        });
       });
-    });
+    } catch (e) {
+      return null;
+    }
   }
 }
 

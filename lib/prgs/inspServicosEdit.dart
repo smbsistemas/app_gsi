@@ -166,10 +166,10 @@ class _InspServicosEdit extends State<InspServicosEdit> {
                                         checked1[index] == true ? true : false,
                                     groupValue: true,
                                     onChanged: (value) {
-//                                      setState(() {
-                                      checked1[index] = true;
-                                      checked2[index] = false;
-//                                      });
+                                      setState(() {
+                                        checked1[index] = true;
+                                        checked2[index] = false;
+                                      });
                                     },
                                   ),
                                 ]),
@@ -206,10 +206,10 @@ class _InspServicosEdit extends State<InspServicosEdit> {
                                             : false,
                                         groupValue: true,
                                         onChanged: (value) {
-//                                          setState(() {
-                                          checked2[index] = true;
-                                          checked1[index] = false;
-                                          //                                        });
+                                          setState(() {
+                                            checked2[index] = true;
+                                            checked1[index] = false;
+                                          });
                                         },
                                       )
                                     ]),
@@ -340,7 +340,7 @@ class _InspServicosEdit extends State<InspServicosEdit> {
         checked2[x] = false;
       }
       x = x + 1;
-      print('check $x');
+      print('x: $x');
     }
   }
 }
