@@ -120,16 +120,35 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
 
     return new Column(
       children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text(
+              'Código:  ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              _codServico,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(bottom: 30),
+            ),
+          ],
+        ),
         // Centro de Custo
         Row(
           children: <Widget>[
             Text(
               'Obra:  ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _desCCU,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -147,7 +166,7 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
           children: <Widget>[
             Text(
               'Modelo de FVS:  ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _codModelo,
@@ -168,11 +187,11 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
           children: <Widget>[
             Text(
               'Inspeção:  ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _servicoInspecionado,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -189,44 +208,10 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
           children: <Widget>[
             Text(
               'Local a ser verificado: ',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _localVerificado,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        // Linha de espaçamento
-        Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(bottom: 30),
-            ),
-          ],
-        ),
-        // Data Inicio do serviço
-        Row(
-          children: <Widget>[
-            Text(
-              'Inicio Serviço :  $_SdataInicio',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        // Linha de espaçamento
-        Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(bottom: 30),
-            ),
-          ],
-        ),
-        // Data Fim do Serviço
-        Row(
-          children: <Widget>[
-            Text(
-              'Fim do Serviço :  $_SdataFim',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
@@ -244,11 +229,45 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
           children: <Widget>[
             Text(
               'Responsável pela verificação:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               _respVerificacao,
               style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        // Linha de espaçamento
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(bottom: 30),
+            ),
+          ],
+        ),
+        // Data Inicio do serviço
+        Row(
+          children: <Widget>[
+            Text(
+              'Inicio Serviço :  $_SdataInicio',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        // Linha de espaçamento
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(bottom: 30),
+            ),
+          ],
+        ),
+        // Data Fim do Serviço
+        Row(
+          children: <Widget>[
+            Text(
+              'Fim do Serviço :  $_SdataFim',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),

@@ -93,7 +93,7 @@ class _ListFichaInspServicos extends State<ListFichaInspServicos> {
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
+                        /* return ListTile(
                           leading: Text(snapshot.data[index].codigo),
                           title: Text(snapshot.data[index].servicoInspecionado),
                           subtitle: Text(snapshot.data[index].nomeCCU +
@@ -115,6 +115,127 @@ class _ListFichaInspServicos extends State<ListFichaInspServicos> {
                               snapshot.data[index].dataFim,
                               snapshot.data[index].responsavelServico),
                         );
+                        */
+                        return Dismissible(
+                            key: Key(snapshot.data[index].codigo),
+                            child: new GestureDetector(
+                                onTap: () {
+                                  //  final String wConformidade =
+                                  //      snapshot.data[index].codigo;
+                                  //  print('cheguei!: $wConformidade');
+                                  _editFichaVerServico(
+                                      snapshot.data[index].codColigada,
+                                      snapshot.data[index].codCCusto,
+                                      snapshot.data[index].codigo,
+                                      snapshot.data[index].codModelo,
+                                      snapshot.data[index].nomeCCU,
+                                      snapshot.data[index].servicoInspecionado,
+                                      snapshot.data[index].localServico,
+                                      snapshot.data[index].dataInicio,
+                                      snapshot.data[index].dataFim,
+                                      snapshot.data[index].responsavelServico);
+                                },
+                                child: Card(
+                                    elevation: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(20, 2, 0, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Text(snapshot.data[index].codigo,
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black
+                                                          .withOpacity(1.0))),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15),
+                                              ),
+                                              Text(snapshot.data[index].nomeCCU,
+                                                  textAlign: TextAlign.right),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot
+                                                        .data[index].codModelo,
+                                                  ),
+                                                ]),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                          Text(
+                                            snapshot.data[index]
+                                                .servicoInspecionado,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot.data[index]
+                                                        .localServico,
+                                                  ),
+                                                ]),
+                                              ),
+                                              Text(snapshot.data[index]
+                                                  .responsavelServico),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot
+                                                        .data[index].dataInicio,
+                                                  ),
+                                                ]),
+                                              ),
+                                              Text(
+                                                  snapshot.data[index].dataFim),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ))));
                       });
                 }
               },

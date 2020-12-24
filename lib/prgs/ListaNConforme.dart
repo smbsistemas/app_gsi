@@ -54,13 +54,18 @@ class _ListaNConforme extends State<ListaNConforme> {
       NaoConformidade documento = NaoConformidade(
           x,
           u['CODCOLIGADA'],
-          u['CODCCUSTO'],
           u['CODNCONFORM'],
+          u['CODCCUSTO'],
+          u['DESCCCU'],
           u['TPACAO'],
           u['CLASSIFICACAO'],
+          u['TIPOREGISTRO'],
+          u['EXTRATIFICACAO'],
+          u['DESSETOR'],
           u['NCONFREALPONTENCIAL'],
+          u['ACAOIMEDTOMADA'],
           u['DATAABERTURANC'],
-          u['DESCCCU']);
+          u['EXECUTOR']);
       _listNaoConforme.add(documento);
       x = x + 1;
     }
@@ -86,22 +91,152 @@ class _ListaNConforme extends State<ListaNConforme> {
                   return ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
+/*                        return ListTile(
                           leading: Text(snapshot.data[index].codnconform +
                               ' - ' +
                               snapshot.data[index].desCCU),
-//                          title: Text(snapshot.data[index].codccusto +
-//                              ' - ' +
-//                              snapshot.data[index].desCCU),
                           title: Text(snapshot.data[index].nconfrealpontencial),
                           subtitle: Text(snapshot.data[index].tpacao +
                               ' - ' +
                               snapshot.data[index].classificacao +
                               ' - ' +
                               snapshot.data[index].dataaberturanc),
-                          //      onLongPress: _showNConformidade(
-                          //          snapshot.data[index].codnconform),
-                        );
+                        ); */
+                        return Dismissible(
+                            key: Key(snapshot.data[index].codnconform),
+                            child: new GestureDetector(
+                                onTap: () {
+                                  final String wConformidade =
+                                      snapshot.data[index].codnconform;
+                                  print('cheguei!: $wConformidade');
+                                },
+                                child: Card(
+                                    elevation: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(20, 2, 0, 0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Text(
+                                                  snapshot
+                                                      .data[index].codnconform,
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black
+                                                          .withOpacity(1.0))),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15),
+                                              ),
+                                              Text(snapshot.data[index].desCCU,
+                                                  textAlign: TextAlign.right),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot.data[index].tpacao,
+                                                    // style: TextStyle(
+                                                    //     //  fontWeight: FontWeight.bold,
+                                                    //     fontSize: 16.0)
+                                                  ),
+                                                ]),
+                                              ),
+                                              Text(
+                                                snapshot
+                                                    .data[index].classificacao,
+                                                textAlign: TextAlign.right,
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot.data[index]
+                                                        .tipoDeRegistro,
+                                                    //   style: TextStyle(
+                                                    //  fontWeight: FontWeight.bold,
+                                                    //      fontSize: 16.0)
+                                                  ),
+                                                ]),
+                                              ),
+                                              Text(snapshot
+                                                  .data[index].extratificacao),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                          Text(
+                                            snapshot.data[index]
+                                                .nconfrealpontencial,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                          Text(
+                                            snapshot.data[index].acaoImediata,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                alignment: Alignment.bottomLeft,
+                                                width: 150.0,
+                                                child:
+                                                    Column(children: <Widget>[
+                                                  Text(
+                                                    snapshot
+                                                        .data[index].executor,
+                                                    //    style: TextStyle(
+                                                    //  fontWeight: FontWeight.bold,
+                                                    //        fontSize: 16.0)
+                                                  ),
+                                                ]),
+                                              ),
+                                              Text(snapshot
+                                                  .data[index].dataaberturanc),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      left: 0.0, top: 5.0))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ))));
                       });
                 }
               },
@@ -135,22 +270,32 @@ class _ListaNConforme extends State<ListaNConforme> {
 class NaoConformidade {
   final int index;
   final String codcoligada;
-  final String codccusto;
   final String codnconform;
+  final String codccusto;
+  final String desCCU;
   final String tpacao;
   final String classificacao;
+  final String desSetor;
+  final String tipoDeRegistro;
+  final String extratificacao;
   final String nconfrealpontencial;
+  final String acaoImediata;
   final String dataaberturanc;
-  final String desCCU;
+  final String executor;
 
   NaoConformidade(
       this.index,
       this.codcoligada,
-      this.codccusto,
       this.codnconform,
+      this.codccusto,
+      this.desCCU,
       this.tpacao,
       this.classificacao,
+      this.tipoDeRegistro,
+      this.extratificacao,
+      this.desSetor,
       this.nconfrealpontencial,
+      this.acaoImediata,
       this.dataaberturanc,
-      this.desCCU);
+      this.executor);
 }

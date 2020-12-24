@@ -485,8 +485,6 @@ class _NaoConforme extends State<NaoConforme> {
           //      validator: _validarTexto,
           onSaved: (String val) {
             setState(() {
-              //  this._evidenciaObservada = val;
-              //  _atribuiValor(3, val);
               _evidenciaObservada = val;
             });
           },
@@ -673,21 +671,10 @@ class _NaoConforme extends State<NaoConforme> {
           ],
         ),
         new RaisedButton(
-          /*print(_naoConformidade),
-          print(_acaoImediata),
-          print(_evidenciaObservada),
-          print(_evidenciaTratativa),
-          print(_primeiroPorque),
-          print(_descricaoAbrangencia), */
-          //onPressed:
           onPressed: () {
             _sendForm(_naoConformidade, _acaoImediata, _evidenciaObservada,
                 _evidenciaTratativa, _primeiroPorque, _descricaoAbrangencia);
           },
-          //  _sendForm('', '', '', '', '', ''),
-
-          // _sendForm,
-
           child: new Text('Enviar'),
         )
       ],
@@ -695,7 +682,6 @@ class _NaoConforme extends State<NaoConforme> {
   }
 
   String _validarTexto(String value) {
-    //String patttern = r'(^[a-zA-Z \-_Ããç!,.áÁÉéêÊ?0-9]*$êéíÍãÃ)';
     String patttern = r'(^[a-zA-Z \-_Ããç!,.áÁÉéêÊíÍ?0-9]*$)';
     RegExp regExp = new RegExp(patttern);
     if (value.length == 0) {
@@ -726,26 +712,6 @@ class _NaoConforme extends State<NaoConforme> {
     });
   }
 
-/*
-  void _atribuiValor(int pCampo, String pValor) {
-    setState(() {
-      if (pCampo == 1) {
-        this._naoConformidade = pValor;
-      } else if (pCampo == 2) {
-        this._acaoImediata = pValor;
-      } else if (pCampo == 3) {
-        this._evidenciaObservada = pValor;
-      } else if (pCampo == 4) {
-        this._evidenciaTratativa = pValor;
-      } else if (pCampo == 5) {
-        this._primeiroPorque = pValor;
-      } else if (pCampo == 6) {
-        this._descricaoAbrangencia = pValor;
-      }
-    });
-  }
-*/
-//  void _sendForm(String pnaoConformidade) {
   _sendForm(
       String pnaoConformidade,
       String pacaoImediata,
