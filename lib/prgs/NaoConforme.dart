@@ -46,13 +46,6 @@ class API {
   }
 }
 
-String _naoConformidade = '';
-String _acaoImediata = '';
-String _evidenciaObservada = '';
-String _evidenciaTratativa = '';
-String _primeiroPorque = '';
-String _descricaoAbrangencia = '';
-
 String _selectedTipoAcao = '';
 String _selectedClassificacao = '';
 String _selectedTipoRegistro = '';
@@ -72,6 +65,13 @@ class NaoConforme extends StatefulWidget {
 }
 
 class _NaoConforme extends State<NaoConforme> {
+  String _naoConformidade = '';
+  String _acaoImediata = '';
+  String _evidenciaObservada = '';
+  String _evidenciaTratativa = '';
+  String _primeiroPorque = '';
+  String _descricaoAbrangencia = '';
+
   // Acesso - informações conexão e usuario
   List _acessoUserList = [];
   String _login = '';
@@ -453,11 +453,11 @@ class _NaoConforme extends State<NaoConforme> {
               labelText: 'Não Conformidade Real ou Potencial:',
               hintText: 'Não Conformidade Real ou Potencial:'),
           maxLength: 100,
-          validator: _validarTexto,
+          //       validator: _validarTexto,
           onSaved: (String val) {
             setState(() {
-              //   _atribuiValor(1, val);
-              //   this._naoConformidade = val;
+              //_atribuiValor(1, val);
+              // this._naoConformidade = val;
               _naoConformidade = val;
             });
           },
@@ -673,10 +673,21 @@ class _NaoConforme extends State<NaoConforme> {
           ],
         ),
         new RaisedButton(
-          onPressed:
-//            _sendForm(_naoConformidade, _acaoImediata, _evidenciaObservada,
-//                _evidenciaTratativa, _primeiroPorque, _descricaoAbrangencia)
-              _sendForm,
+          /*print(_naoConformidade),
+          print(_acaoImediata),
+          print(_evidenciaObservada),
+          print(_evidenciaTratativa),
+          print(_primeiroPorque),
+          print(_descricaoAbrangencia), */
+          //onPressed:
+          onPressed: () {
+            _sendForm(_naoConformidade, _acaoImediata, _evidenciaObservada,
+                _evidenciaTratativa, _primeiroPorque, _descricaoAbrangencia);
+          },
+          //  _sendForm('', '', '', '', '', ''),
+
+          // _sendForm,
+
           child: new Text('Enviar'),
         )
       ],
@@ -715,7 +726,8 @@ class _NaoConforme extends State<NaoConforme> {
     });
   }
 
-/*  void _atribuiValor(int pCampo, String pValor) {
+/*
+  void _atribuiValor(int pCampo, String pValor) {
     setState(() {
       if (pCampo == 1) {
         this._naoConformidade = pValor;
@@ -734,18 +746,18 @@ class _NaoConforme extends State<NaoConforme> {
   }
 */
 //  void _sendForm(String pnaoConformidade) {
-/*   _sendForm(
+  _sendForm(
       String pnaoConformidade,
       String pacaoImediata,
       String pevidenciaObservada,
       String pevidenciaTratativa,
       String pprimeiroPorque,
-      String pdescricaoAbrangencia) { */
-  _sendForm() {
+      String pdescricaoAbrangencia) {
+    //_sendForm() {
     if (_key.currentState.validate()) {
       // Sem erros na validação
-      _insertNaoConforme(_naoConformidade, _acaoImediata, _evidenciaObservada,
-          _evidenciaTratativa, _primeiroPorque, _descricaoAbrangencia);
+      _insertNaoConforme(pnaoConformidade, pacaoImediata, pevidenciaObservada,
+          pevidenciaTratativa, pprimeiroPorque, pdescricaoAbrangencia);
       _key.currentState.save();
     } else {
       // erro de validação
@@ -778,16 +790,16 @@ class _NaoConforme extends State<NaoConforme> {
 
     final DateFormat wData = DateFormat('ddMMyyyy');
     final String wDataAcao = wData.format(_dataCorrente);
-    String wnaoConformidade = _naoConformidade;
+    String wnaoConformidade = pnaoConformidade;
     print('Cheguei ! - Save');
     print('_itemCCU: $_itemCCU');
     print('naoConformidade : $wnaoConformidade');
-    print('_acaoImediata: $_acaoImediata');
-    print('_evidenciaObservada: $_evidenciaObservada');
-    print('_evidenciaTratativa: $_evidenciaTratativa');
-    print('_primeiroPorque: $_primeiroPorque');
-    print('_descricaoAbrangencia: $_descricaoAbrangencia');
-    if ((_naoConformidade != null) && (_itemCCU != null)) {
+    print('_acaoImediata: $pacaoImediata');
+    print('_evidenciaObservada: $pevidenciaObservada');
+    print('_evidenciaTratativa: $pevidenciaTratativa');
+    print('_primeiroPorque: $pprimeiroPorque');
+    print('_descricaoAbrangencia: $pdescricaoAbrangencia');
+    if ((pnaoConformidade != null) && (_itemCCU != null)) {
       var dataNaoConf = await http.get(
           'http://$_host:$_porta/PostNaoConfomidade/$_coligada/$_itemCCU/$_itemTipo/$_itemClassificacao/$_itemExtratificacao/$wDataAcao/$pnaoConformidade/$pacaoImediata/$pevidenciaObservada/$pevidenciaTratativa/$_codigo/$_itemExecutor/$pprimeiroPorque/$_itemSetor/$_itemTipoRegistro/$wtipoIsolado/$wAfetaQualidade/$pdescricaoAbrangencia/$wPlanoAcao');
       var jsonData = json.decode(dataNaoConf.body)['NaoConformidade'];
@@ -806,7 +818,7 @@ class _NaoConforme extends State<NaoConforme> {
       data.idColigada = _coligada;
       data.idCCU = _itemCCU;
       data.temPlanoAcao = wPlanoAcao;
-      data.desNaoConfomidade = _naoConformidade;
+      data.desNaoConfomidade = pnaoConformidade;
       data.tipoAcao = _itemTipo;
 
       dataConfig.auIdUser = _codigo;
@@ -820,20 +832,6 @@ class _NaoConforme extends State<NaoConforme> {
             builder: (context) => Relator(data: data, dataConfig: dataConfig)),
       );
       print('fim - relator');
-      /*   if (wPlanoAcao == 'S') {
-        print('plano de ação = sim');
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  PlanoAcao(data: data, dataConfig: dataConfig)),
-        );
-        // Route route = MaterialPageRoute(builder: (context) => PlanoAcao(_ncCodigo));
-        // Navigator.pushReplacement(context, route);
-      } else {
-        Navigator.pushReplacementNamed(context, "/");
-      } */
     } else {
       print("erro: valores null - send novamente");
     }
