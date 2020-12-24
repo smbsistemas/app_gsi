@@ -228,7 +228,7 @@ class _FichaVerServicoEdit extends State<FichaVerServicoEdit> {
         Row(
           children: <Widget>[
             Text(
-              'Responsável pela verificação:',
+              'Responsável:',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(

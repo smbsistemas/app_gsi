@@ -176,7 +176,7 @@ class _FichaVerServico extends State<FichaVerServico> {
                 onChanged: (String newValue) {
                   setState(() {
                     _dropDownItemSelected('FVS', newValue);
-                    //            this._itemFVS = newValue;
+                    this._itemMFVS = newValue;
                   });
                 },
                 value: _itemMFVS,
@@ -197,7 +197,7 @@ class _FichaVerServico extends State<FichaVerServico> {
           decoration: new InputDecoration(
               labelText: 'Inspeção:', hintText: 'Inspeção:'),
           maxLength: 30,
-          validator: _validarTexto,
+          //   validator: _validarTexto,
           onSaved: (String val) {
             setState(() {
               _servicoInspecionado = val;
@@ -218,7 +218,7 @@ class _FichaVerServico extends State<FichaVerServico> {
               labelText: 'Local a ser verificado:',
               hintText: 'Local a ser verificado:'),
           maxLength: 30,
-          validator: _validarTexto,
+          //   validator: _validarTexto,
           onSaved: (String val) {
             setState(() {
               _localVerificado = val;
@@ -361,7 +361,10 @@ class _FichaVerServico extends State<FichaVerServico> {
 
         */
         new RaisedButton(
-          onPressed: _sendForm,
+          onPressed: () {
+            _sendForm(_itemCCU, _itemMFVS, _servicoInspecionado,
+                _localVerificado, _dataInicio, _dataFim, _respVerificacao);
+          },
           child: new Text('Enviar'),
         )
       ],
@@ -389,10 +392,18 @@ class _FichaVerServico extends State<FichaVerServico> {
     });
   }
 
-  void _sendForm() {
+  void _sendForm(
+      String pitemCCU,
+      String pitemMFVS,
+      String pservicoInspecionado,
+      String plocalVerificado,
+      DateTime pdataInicio,
+      DateTime pdataFim,
+      String prespVerificacao) {
     if (_key.currentState.validate()) {
       // Sem erros na validação
-      _insertFVS();
+      _insertFVS(pitemCCU, pitemMFVS, pservicoInspecionado, plocalVerificado,
+          pdataInicio, pdataFim, prespVerificacao);
       _key.currentState.save();
     } else {
       // erro de validação
@@ -402,18 +413,25 @@ class _FichaVerServico extends State<FichaVerServico> {
     }
   }
 
-  void _insertFVS() async {
+  void _insertFVS(
+      String pitemCCU,
+      String pitemMFVS,
+      String pservicoInspecionado,
+      String plocalVerificado,
+      DateTime pdataInicio,
+      DateTime pdataFim,
+      String prespVerificacao) async {
     final DateFormat wData = DateFormat('ddMMyyyy');
-    final String wDataInicio = wData.format(_dataInicio);
-    final String wDataFim = wData.format(_dataFim);
+    final String wDataInicio = wData.format(pdataInicio);
+    final String wDataFim = wData.format(pdataFim);
 
     print('Cheguei ! - Save');
     print('_itemFVS: $_itemMFVS');
     print('_itemCCU: $_itemCCU');
 
-    if ((_itemMFVS != null) || (_itemCCU != null)) {
+    if ((pitemMFVS != null) || (pitemCCU != null)) {
       var dataFichaServicos = await http.get(
-          'http://$_host:$_porta/PFichaServ/$_coligada/$_itemCCU/$_itemMFVS/$_servicoInspecionado/$_localVerificado/$wDataInicio/$wDataFim/$_respVerificacao');
+          'http://$_host:$_porta/PFichaServ/$_coligada/$pitemCCU/$pitemMFVS/$pservicoInspecionado/$plocalVerificado/$wDataInicio/$wDataFim/$prespVerificacao');
       var jsonData = json.decode(dataFichaServicos.body)['FichaServicos'];
 
       List<FichaServicos> _listFichaServicos = [];

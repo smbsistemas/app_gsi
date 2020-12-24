@@ -317,10 +317,11 @@ class _InspServicosEdit extends State<InspServicosEdit> {
   Future<List<ModeloServicos>> _getModeloFVSCheck() async {
     String _inspecao;
     String _acao;
+    print('cheguei 1');
     var data = await http
         .get('http://$_host:$_porta/GetItemMFVSEdit/$_idColigada/$_codFVS');
     var jsonData = json.decode(data.body)['ItensServicosEdit'];
-
+    print('cheguei 1');
     int x = 0;
     for (var u in jsonData) {
       ModeloServicos documento = ModeloServicos(x, u['CODMODELO'], u['ITEM'],
